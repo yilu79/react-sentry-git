@@ -69,9 +69,14 @@ jobs:
         uses: jungwinter/split@v2.0.0
         with:
           separator: "/"
-          msg: ${{ github.ref}}
+          msg: ${{ github.ref }}
       - name: Echo Repo Name
         run: |
+          echo "First field"
+          echo ${{ steps.split_repo_name.outputs._1}}
+          echo "Second field"
+          echo ${{ steps.split_repo_name.outputs._2}}
+          echo "Third field"
           echo ${{ steps.split_repo_name.outputs._3}}
 
       - name: Sentry Release
