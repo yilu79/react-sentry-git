@@ -15,6 +15,7 @@ jobs:
 
   generate_git_tags:
     name: "GitHub Tags"
+    permissions: write-all
     runs-on: ubuntu-latest
     outputs:
       output_new_tag: ${{ steps.taggerFinal.outputs.new_tag }}
