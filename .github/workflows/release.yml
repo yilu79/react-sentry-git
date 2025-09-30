@@ -78,6 +78,12 @@ jobs:
           echo ${{ steps.split_repo_name.outputs._2}}
           echo "Third field"
           echo ${{ steps.split_repo_name.outputs._3}}
+          echo "secrets.SENTRY_AUTH_TOKEN"
+          echo ${{ secrets.SENTRY_AUTH_TOKEN}}
+          echo "secrets.SENTRY_ORG "
+          echo ${{ secrets.SENTRY_ORG  }}
+          echo "secrets.SENTRY_PROJECT"
+          echo ${{ secrets.SENTRY_PROJECT }}
 
       - name: Sentry Release
         uses: getsentry/action-release@v1.2.0
@@ -87,7 +93,3 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          #version: ${{ steps.split_repo_name.outputs._3}}@${{ needs.generate_git_tags.outputs.output_new_tag }}
-          # version: "react-sentry-git@${{ needs.generate_git_tags.outputs.output_new_tag }}"
-          # sourcemaps: "./dist"
-          # url_prefix: "~"
