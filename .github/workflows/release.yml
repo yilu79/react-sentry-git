@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - sentry-integration
+      - develop
 jobs:
   information:
     name: GitHub Context
@@ -48,6 +48,17 @@ jobs:
           tag: ${{ needs.generate_git_tags.outputs.output_new_tag }}
           token: ${{ secrets.CHANGELOG_RELEASE }}
 
+  dump_context:
+    runs-on: ubuntu-latest # Run the job on an Ubuntu runner
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 # Action to checkout your repository code
+
+      - name: Dump GitHub context to log
+        run: |
+          echo "GitHub Repository:"
+          echo "${{ github.repository }}"
+
   generate_sentry_release:
     needs: [generate_git_tags, generate_git_release]
     permissions: write-all
@@ -61,36 +72,27 @@ jobs:
       - name: Echo Git Repository
         run: |
           echo "Echo github.respository "
-          echo ${{ github.repository}}
-          echo "Echo github.ref "
-          echo ${{ github.ref }}
+          echo " ${{ github.repository}} "
       - name: Split Repo Name
         id: split_repo_name
         uses: jungwinter/split@v2.0.0
         with:
           separator: "/"
-          msg: ${{ github.ref }}
+          msg: " ${{ github.repository }} "
+          maxsplit: 1
       - name: Echo Repo Name
         run: |
           echo "First field"
-          echo ${{ steps.split_repo_name.outputs._1}}
+          echo " ${{ steps.split_repo_name.outputs._1}} "
           echo "Second field"
-          echo ${{ steps.split_repo_name.outputs._2}}
-          echo "Third field"
-          echo ${{ steps.split_repo_name.outputs._3}}
-          echo "secrets.SENTRY_AUTH_TOKEN"
-          echo ${{ secrets.SENTRY_AUTH_TOKEN}}
-          echo "secrets.SENTRY_ORG "
-          echo ${{ secrets.SENTRY_ORG  }}
-          echo "secrets.SENTRY_PROJECT"
-          echo ${{ secrets.SENTRY_PROJECT }}
+          echo " ${{ steps.split_repo_name.outputs._2}} "
 
       - name: Sentry Release
         uses: getsentry/action-release@v3
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_ORG: "MyBCSolutions"
-          SENTRY_PROJECT: "react-sentry-git"
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          projects: react-sentry-git
+          version: ${{ secrets.SENTRY_PROJECT }}@${{ needs.generate_git_tags.outputs.output_new_tag }}
