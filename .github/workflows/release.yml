@@ -86,7 +86,7 @@ jobs:
         run: |
           echo "GitHub Context:"
           echo "${{ toJson(github) }}"
-          echo "GitHub Repository }}
+          echo "GitHub Repository:"
           echo "${{ github.repository }}"
   # generate_sentry_release:
   #   needs: [generate_git_tags, generate_git_release]
