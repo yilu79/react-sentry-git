@@ -9,9 +9,9 @@ jobs:
     information:
         name: GitHub Context
         runs-on: ubuntu-latest
-        steps: /
+        steps: 
             - name: Info
-            run: echo "$GITHUB_CONTEXT"
+              run: echo "$GITHUB_CONTEXT"
     
     generate_git_tags:
         name: 'GitHub Tags'
