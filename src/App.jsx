@@ -46,7 +46,7 @@ function App() {
       <div className="card">
         <button onClick={() => {
           setCount((count) => count + 1)
-          handleClick("San Diego, we have an error!")
+          handleClick("San Diego, we have 3rd error!")
         }
         }>
           count is {count}
