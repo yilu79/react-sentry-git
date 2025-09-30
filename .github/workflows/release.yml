@@ -55,7 +55,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Echo Git Repository
@@ -86,7 +86,7 @@ jobs:
           echo ${{ secrets.SENTRY_PROJECT }}
 
       - name: Sentry Release
-        uses: getsentry/action-release@v1.2.0
+        uses: getsentry/action-release@v3
         env:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
