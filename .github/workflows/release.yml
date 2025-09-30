@@ -69,10 +69,10 @@ jobs:
         uses: jungwinter/split@v2.0.0
         with:
           separator: "/"
-          msg: ${{ github.repository}}
-          maxsplit: 1
+          msg: ${{ github.ref}}
       - name: Echo Repo Name
-        run: echo ${{ steps.split_repo_name.outputs._1}}
+        run: |
+          echo ${{ steps.split_repo_name.outputs._3}}
 
       - name: Sentry Release
         uses: getsentry/action-release@v1.2.0
@@ -82,6 +82,6 @@ jobs:
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
         with:
           environment: production
-          version: ${{ steps.split_repo_name.outputs._1}}@${{ needs.generate_git_tags.outputs.output_new_tag }}
+          version: ${{ steps.split_repo_name.outputs._3}}@${{ needs.generate_git_tags.outputs.output_new_tag }}
           sourcemaps: "./dist"
           url_prefix: "~"
