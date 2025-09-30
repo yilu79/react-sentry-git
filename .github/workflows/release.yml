@@ -50,6 +50,7 @@ jobs:
 
   generate_sentry_release:
     needs: [generate_git_tags, generate_git_release]
+    permissions: write-all
     name: Sentry Release
     runs-on: ubuntu-latest
     steps:
