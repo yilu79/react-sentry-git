@@ -74,18 +74,17 @@ jobs:
           echo "Echo github.respository "
           echo " ${{ github.repository}} "
       - name: Split Repo Name
-        id: split_repo_name
-        uses: jungwinter/split@v2.0.0
+        id: split
+        uses: jungwinter/split@v2
         with:
           separator: "/"
           msg: " ${{ github.repository }} "
-          maxsplit: 1
       - name: Echo Repo Name
         run: |
           echo "First field"
-          echo " ${{ steps.split_repo_name.outputs._1}} "
+          echo ${{ steps.split.outputs._1}} 
           echo "Second field"
-          echo " ${{ steps.split_repo_name.outputs._2}} "
+          echo ${{ steps.split.outputs._2}}
 
       - name: Sentry Release
         uses: getsentry/action-release@v3
