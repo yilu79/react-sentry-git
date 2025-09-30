@@ -32,7 +32,7 @@ jobs:
           WITH_V: true
           DEFAULT_BUMP: patch
 
-      - name: Echo New Tag
+      - name: Echo New Created Tag
         run: echo ${{ steps.taggerFinal.outputs.new_tag }}
 #   generate_git_release:
 #     needs: generate_git_tags
