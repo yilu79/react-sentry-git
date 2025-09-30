@@ -63,7 +63,7 @@ jobs:
         uses: jungwinter/split@v2.0.0
         with:
           separator: "/"
-          msg: ${{ github.reposity }}
+          msg: "${{ github.reposity }}"
           maxsplit: 1
       - name: Echo Repo Name
         run: echo ${{ steps.split_repo_name.outputs._1}}
