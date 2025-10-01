@@ -55,9 +55,10 @@ jobs:
         uses: actions/checkout@v4 # Action to checkout your repository code
 
       - name: Dump GitHub context to log
+        id: get_git_repo
         run: |
           echo "GitHub Repository:"
-          echo "${{ github.repository }}"
+          echo :set-output name=gitrepo::"${{ github.repository }}"
 
   generate_sentry_release:
     needs: [generate_git_tags, generate_git_release]
@@ -72,13 +73,13 @@ jobs:
       - name: Echo Git Repository
         run: |
           echo "Echo github.respository "
-          echo "${{ github.repository }}"
+          echo "${{ steps.get_git_repo.output.gitrepo}}"
       - name: Split Repo Name
         id: split
         uses: jungwinter/split@v2
         with:
           separator: "/"
-          msg: "${{ github.repository }}"
+          msg: "${{ steps.get_git_repo.output.gitrepo}}"
       - name: Echo Repo Name
         run: |
           echo "First field"
