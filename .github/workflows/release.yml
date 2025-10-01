@@ -58,7 +58,7 @@ jobs:
         id: get_git_repo
         run: |
           echo "GitHub Repository:"
-          echo :set-output name=gitrepo::"${{ github.repository }}"
+          echo ::set-output name=gitrepo::"${{ github.repository }}"
 
   generate_sentry_release:
     needs: [generate_git_tags, generate_git_release]
