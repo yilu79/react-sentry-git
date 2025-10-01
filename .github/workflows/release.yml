@@ -73,13 +73,13 @@ jobs:
       - name: Echo Git Repository
         run: |
           echo "Echo github.respository "
-          echo "${{ steps.get_git_repo.output.gitrepo}}"
+          echo "${{ steps.get_git_repo.output.gitrepo }}"
       - name: Split Repo Name
         id: split
         uses: jungwinter/split@v2
         with:
           separator: "/"
-          msg: "${{ steps.get_git_repo.output.gitrepo}}"
+          msg: "${{ steps.get_git_repo.output.gitrepo }}"
       - name: Echo Repo Name
         run: |
           echo "First field"
